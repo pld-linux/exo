@@ -11,7 +11,7 @@ URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig
-BuildRequires:	libxfcegui4-devel >= 4.1.90
+BuildRequires:	libxfcegui4-devel >= 4.2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
