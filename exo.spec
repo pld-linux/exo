@@ -8,8 +8,8 @@ Group:		Libraries
 Source0:	http://download.berlios.de/xfce-goodies/exo-%{version}.tar.bz2
 # Source0-md5:	d5c4b3d2fd9da3759b846f41922bb30f
 URL:		http://www.os-cillation.com/
+BuildRequires:	autoconf
 BuildRequires:	dbus-glib-devel >= 0.22
-BuildRequires:	gcc-c++
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig
 BuildRequires:	libxfcegui4-devel >= 4.1.90
@@ -49,6 +49,7 @@ Statyczna biblioteka libexo.
 %setup -q -n exo-%{version}
 
 %build
+%{__autoconf}
 %configure \
 	--with-html-dir=%{_gtkdocdir}
 %{__make}
