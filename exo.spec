@@ -2,7 +2,7 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl):	Biblioteka rozszerzeñ do Xfce opracowana przez os-cillation
 Name:		libexo
 Version:	0.2.0
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://download.berlios.de/xfce-goodies/exo-%{version}.tar.bz2
