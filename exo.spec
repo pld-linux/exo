@@ -8,10 +8,12 @@ Group:		Libraries
 Source0:	http://download.berlios.de/xfce-goodies/exo-%{version}.tar.bz2
 # Source0-md5:	ffcd73ec6b34f19c81afdc3f1a97377b
 URL:		http://www.os-cillation.com/
-BuildRequires:	autoconf
 BuildRequires:	gettext-devel
-BuildRequires:	pkgconfig
+BuildRequires:	gtk-doc >= 1.0
+BuildRequires:	gtk+2-devel >= 2:2.4.0
 BuildRequires:	libxfcegui4-devel >= 4.2.0
+BuildRequires:	pkgconfig
+BuildRequires:	python-pygtk-devel >= 2:2.4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,11 +46,35 @@ Static libexo library.
 %description static -l pl
 Statyczna biblioteka libexo.
 
+%package -n python-exo
+Summary:	Python binding for libexo library
+Summary(pl):	Wi±zania Pythona do biblioteki libexo
+Group:		Libraries/Python
+Requires:	%{name} = %{version}-%{release}
+%pyrequires_eq	python-libs
+
+%description -n python-exo
+Python binding for libexo library.
+
+%description -n python-exo -l pl
+Wi±zania Pythona do biblioteki libexo.
+
+%package -n python-exo-devel
+Summary:	Development files for libexo Python bindings
+Summary(pl):	Pliki programistyczne wi±zañ Pythona do libexo
+Group:		Libraries/Python
+Requires:	python-exo = %{version}-%{release}
+
+%description -n python-exo-devel
+Development files for libexo Python bindings.
+
+%description -n python-exo-devel -l pl
+Pliki programistyczne wi±zañ Pythona do libexo.
+
 %prep
 %setup -q -n exo-%{version}
 
 %build
-%{__autoconf}
 %configure \
 	--with-html-dir=%{_gtkdocdir}
 %{__make}
@@ -59,7 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%find_lang %{name} --all-name
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/exo-0.3/*.{la,a}
+
+%find_lang %{name}-0.3
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -67,25 +95,31 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files -f %{name}.lang
+%files -f %{name}-0.3.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog HACKING NEWS README TODO
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
-%{py_sitescriptdir}/*.py
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
 %{_includedir}/exo-0.3
-%{_datadir}/pygtk/2.0/defs/exo-0.3/*
-%{py_sitedir}/exo-0.3/exo/*.py[co]
-%{py_sitedir}/exo-0.3/*
-%{py_sitescriptdir}/*.py[co]
 %{_pkgconfigdir}/*.pc
-%{_gtkdocdir}/*
+%{_gtkdocdir}/exo
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
-%{py_sitedir}/exo-0.3/*.a
+
+%files -n python-exo
+%defattr(644,root,root,755)
+%dir %{py_sitedir}/exo-0.3
+%attr(755,root,root) %{py_sitedir}/exo-0.3/_exo.so
+%dir %{py_sitedir}/exo-0.3/exo
+%{py_sitedir}/exo-0.3/exo/*.py[co]
+%{py_sitescriptdir}/*.py[co]
+
+%files -n python-exo-devel
+%defattr(644,root,root,755)
+%{_datadir}/pygtk/2.0/defs/exo-0.3
