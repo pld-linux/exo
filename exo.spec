@@ -11,8 +11,10 @@ URL:		http://www.os-cillation.com/
 BuildRequires:	gettext-devel
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	gtk+2-devel >= 2:2.4.0
+BuildRequires:	libstdc++-devel
 BuildRequires:	libxfcegui4-devel >= 4.2.0
 BuildRequires:	pkgconfig
+BuildRequires:	python
 BuildRequires:	python-pygtk-devel >= 2:2.4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
