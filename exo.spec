@@ -29,6 +29,7 @@ Summary:	Header files for libexo library
 Summary(pl):	Pliki nag³ówkowe biblioteki libexo
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libxfcegui4-devel >= 4.2.0
 
 %description devel
 Header files for libexo library.
