@@ -1,3 +1,4 @@
+%bcond_without	static_libs	# don't build static library
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl):	Biblioteka rozszerzeñ do Xfce opracowana przez os-cillation
 Name:		libexo
@@ -78,7 +79,8 @@ Pliki programistyczne wi±zañ Pythona do libexo.
 
 %build
 %configure \
-	--with-html-dir=%{_gtkdocdir}
+	--with-html-dir=%{_gtkdocdir} \
+	%{!?with_static_libs:--disable-static}
 %{__make}
 
 %install
@@ -110,9 +112,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/*.pc
 %{_gtkdocdir}/exo
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+%endif
 
 %files -n python-exo
 %defattr(644,root,root,755)
