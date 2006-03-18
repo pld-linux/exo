@@ -1,3 +1,4 @@
+#
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 #
@@ -18,6 +19,8 @@ BuildRequires:	libxfcegui4-devel >= 4.2.0
 BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	python-pygtk-devel >= 2:2.4.0
+BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	xorg-lib-libXt-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -92,6 +95,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/exo-0.3/*.{la,a}
+
+%py_postclean
 
 %find_lang %{name}-0.3
 
