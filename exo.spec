@@ -13,14 +13,18 @@ Group:		Libraries
 Source0:	http://download.berlios.de/xfce-goodies/exo-%{version}%{_pre}.tar.bz2
 # Source0-md5:	27428c5462837162ccda6ae1d2626627
 URL:		http://www.os-cillation.com/
+BuildRequires:	autoconf >= 2.50
+BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	libxfce4util-devel >= 4.2.2
+BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	python
 BuildRequires:	python-pygtk-devel >= 2:2.4.0
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	xfce4-dev-tools
 BuildRequires:	xfce-mcs-manager
 BuildRequires:	xorg-lib-libXt-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -96,6 +100,11 @@ Pliki programistyczne wi±zañ Pythona do libexo.
 %setup -q -n exo-%{version}%{_pre}
 
 %build
+%{__libtoolize}
+%{__aclocal} -I %{_datadir}/xfce4/dev-tools/m4macros
+%{__autoheader}
+%{__automake}
+%{__autoconf}
 %configure \
 	--with-html-dir=%{_gtkdocdir} \
 	%{!?with_static_libs:--disable-static} \
