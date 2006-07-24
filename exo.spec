@@ -9,7 +9,7 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl):	Biblioteka rozszerzeñ do Xfce opracowana przez os-cillation
 Name:		libexo
 Version:	0.3.1.8
-Release:	0.%{_pre}.2
+Release:	0.%{_pre}.3
 License:	GPL v2
 Group:		Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/exo-%{version}%{_pre}.tar.bz2
@@ -22,6 +22,7 @@ BuildRequires:	gtk+2-devel >= 2:2.10.1
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	libtool
 BuildRequires:	libxfce4util-devel >= %{xfce_version}
+BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
 BuildRequires:	python-pygtk-devel >= 2:2.9.3
 BuildRequires:	rpmbuild(macros) >= 1.219
