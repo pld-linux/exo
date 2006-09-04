@@ -2,30 +2,31 @@
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 #
-%define		_pre		beta2
-%define		xfce_version	4.3.90.2
+%define		_pre		rc1
+%define		xfce_version	4.3.99.1
 #
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl):	Biblioteka rozszerzeñ do Xfce opracowana przez os-cillation
 Name:		libexo
-Version:	0.3.1.8
-Release:	0.%{_pre}.3
+Version:	0.3.1.10
+Release:	0.%{_pre}.1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/exo-%{version}%{_pre}.tar.bz2
-# Source0-md5:	b8465faab19e233d5edda12bdd4940b4
+# Source0-md5:	98d5493c898ab54b82b0835fc0e6df87
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2:2.10.1
 BuildRequires:	gtk-doc >= 1.0
+BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libtool
 BuildRequires:	libxfce4util-devel >= %{xfce_version}
 BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
 BuildRequires:	python-pygtk-devel >= 2:2.9.3
-BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	rpm-pythonprov
 BuildRequires:	xfce4-dev-tools >= %{xfce_version}
 BuildRequires:	xfce-mcs-manager-devel >= %{xfce_version}
@@ -43,6 +44,7 @@ Summary:	The Xfce Preferred Applications framework
 Summary(pl):	Struktura Preferowanych Aplikacji Xfce
 Group:		Applications
 Requires(post,postun):	gtk+2 >= 2:2.10.0
+Requires(post,postun):	hicolor-icon-theme
 Requires:	xfce-mcs-plugins >= %{xfce_version}
 
 %description -n xfce-preferred-applications
@@ -105,6 +107,7 @@ Pliki programistyczne wi±zañ Pythona do libexo.
 %setup -q -n exo-%{version}%{_pre}
 
 %build
+%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
@@ -136,15 +139,16 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-p /sbin/ldconfig
 
 %post	-n xfce-preferred-applications
-gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
+%update_icon_cache hicolor
 
 %postun	-n xfce-preferred-applications
-gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
+%update_icon_cache hicolor
 
 %files -f %{name}-0.3.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog HACKING NEWS README TODO
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%{_pixmapsdir}/exo-0.3/
 
 %files -n xfce-preferred-applications
 %defattr(644,root,root,755)
