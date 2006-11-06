@@ -2,30 +2,30 @@
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 #
-%define		_pre		rc1
-%define		xfce_version	4.3.99.1
+%define		_pre		rc2
+%define		xfce_version	4.3.99.2
 #
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl):	Biblioteka rozszerzeñ do Xfce opracowana przez os-cillation
 Name:		libexo
-Version:	0.3.1.10
+Version:	0.3.1.12
 Release:	0.%{_pre}.1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/exo-%{version}%{_pre}.tar.bz2
-# Source0-md5:	98d5493c898ab54b82b0835fc0e6df87
+# Source0-md5:	4c74431033c4c222efeccd4cf47ab65f
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+2-devel >= 2:2.10.1
+BuildRequires:	gtk+2-devel >= 2:2.10.6
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libtool
 BuildRequires:	libxfce4util-devel >= %{xfce_version}
 BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
-BuildRequires:	python-pygtk-devel >= 2:2.9.3
+BuildRequires:	python-pygtk-devel >= 2:2.10.3
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	rpm-pythonprov
 BuildRequires:	xfce4-dev-tools >= %{xfce_version}
@@ -43,7 +43,7 @@ Biblioteka rozszerzeñ do Xfce opracowana przez os-cillation.
 Summary:	The Xfce Preferred Applications framework
 Summary(pl):	Struktura Preferowanych Aplikacji Xfce
 Group:		Applications
-Requires(post,postun):	gtk+2 >= 2:2.10.0
+Requires(post,postun):	gtk+2 >= 2:2.10.6
 Requires(post,postun):	hicolor-icon-theme
 Requires:	xfce-mcs-plugins >= %{xfce_version}
 
@@ -116,6 +116,7 @@ Pliki programistyczne wi±zañ Pythona do libexo.
 %configure \
 	--with-html-dir=%{_gtkdocdir} \
 	%{!?with_static_libs:--disable-static} \
+	--enable-python \
 	--enable-xfce-mcs-manager
 %{__make}
 
@@ -158,6 +159,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/xfce4/mcs-plugins/exo-preferred-applications-settings.so
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/*.rc
 %{_datadir}/xfce4/doc/C
+%lang(fr) %{_datadir}/xfce4/doc/fr
 %lang(ja) %{_datadir}/xfce4/doc/ja
 %dir %{_datadir}/xfce4/helpers
 %{_datadir}/xfce4/helpers/*.desktop
