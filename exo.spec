@@ -2,34 +2,35 @@
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 #
-%define		_pre		rc2
-%define		xfce_version	4.3.99.2
+%define		xfce_version	4.4.0
 #
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl):	Biblioteka rozszerzeñ do Xfce opracowana przez os-cillation
 Name:		libexo
-Version:	0.3.1.12
-Release:	0.%{_pre}.2
+Version:	0.3.2
+Release:	1
 License:	GPL v2
 Group:		Libraries
-Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/exo-%{version}%{_pre}.tar.bz2
-# Source0-md5:	4c74431033c4c222efeccd4cf47ab65f
+Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/exo-%{version}.tar.bz2
+# Source0-md5:	8b73acc98d0938d1193b31316823b6db
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2:2.10.6
-BuildRequires:	gtk-doc >= 1.0
+BuildRequires:	gtk-doc >= 1.7
+BuildRequires:	hal-devel >= 0.5.0
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libtool
+BuildRequires:	libnotify-devel >= 0.4.0
 BuildRequires:	libxfce4util-devel >= %{xfce_version}
 BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
 BuildRequires:	python-pygtk-devel >= 2:2.10.3
-BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	rpm-pythonprov
-BuildRequires:	xfce4-dev-tools >= %{xfce_version}
+BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	xfce-mcs-manager-devel >= %{xfce_version}
+BuildRequires:	xfce4-dev-tools >= %{xfce_version}
 BuildRequires:	xorg-lib-libXt-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -43,7 +44,7 @@ Biblioteka rozszerzeñ do Xfce opracowana przez os-cillation.
 Summary:	The Xfce Preferred Applications framework
 Summary(pl):	Struktura Preferowanych Aplikacji Xfce
 Group:		Applications
-Requires(post,postun):	gtk+2 >= 2:2.10.6
+Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
 Requires:	xfce-mcs-plugins >= %{xfce_version}
 
@@ -52,6 +53,18 @@ The Xfce Preferred Applications framework.
 
 %description -n xfce-preferred-applications -l pl
 Struktura Preferowanych Aplikacji Xfce.
+
+%package apidocs
+Summary:	libexo API documentation
+Summary(pl):	Dokumentacja API libexo
+Group:		Documentation
+Requires:	gtk-doc-common
+
+%description apidocs
+libexo API documentation.
+
+%description apidocs -l pl
+Dokumentacja API libexo.
 
 %package devel
 Summary:	Header files for libexo library
@@ -104,7 +117,7 @@ Development files for libexo Python bindings.
 Pliki programistyczne wi±zañ Pythona do libexo.
 
 %prep
-%setup -q -n exo-%{version}%{_pre}
+%setup -q -n exo-%{version}
 
 %build
 %{__intltoolize}
@@ -114,10 +127,13 @@ Pliki programistyczne wi±zañ Pythona do libexo.
 %{__automake}
 %{__autoconf}
 %configure \
+	--enable-hal \
+	--enable-gtk-doc \
+	--enable-notifications \
 	--with-html-dir=%{_gtkdocdir} \
 	%{!?with_static_libs:--disable-static} \
 	--enable-python \
-	--enable-xfce-mcs-manager
+	--enable-mcs-plugin
 %{__make}
 
 %install
@@ -156,6 +172,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/exo-compose-mail-0.3
 %attr(755,root,root) %{_libdir}/exo-helper-0.3
+%attr(755,root,root) %{_libdir}/exo-mount-notify-0.3
 %attr(755,root,root) %{_libdir}/xfce4/mcs-plugins/exo-preferred-applications-settings.so
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/*.rc
 %{_datadir}/xfce4/doc/C
@@ -169,14 +186,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/apps/applications-other.png
 %{_mandir}/man1/*.1*
 
+%files apidocs
+%defattr(644,root,root,755)
+%{_gtkdocdir}/exo
+
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
 %{_includedir}/exo-0.3
 %{_pkgconfigdir}/*.pc
-# not present in beta ?
-#%{_gtkdocdir}/exo
 
 %if %{with static_libs}
 %files static
