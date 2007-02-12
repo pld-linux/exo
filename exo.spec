@@ -5,7 +5,7 @@
 %define		xfce_version	4.4.0
 #
 Summary:	Extension library to Xfce developed by os-cillation
-Summary(pl):	Biblioteka rozszerzeñ do Xfce opracowana przez os-cillation
+Summary(pl.UTF-8):   Biblioteka rozszerzeÅ„ do Xfce opracowana przez os-cillation
 Name:		libexo
 Version:	0.3.2
 Release:	1
@@ -37,12 +37,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Extension library to Xfce developed by os-cillation.
 
-%description -l pl
-Biblioteka rozszerzeñ do Xfce opracowana przez os-cillation.
+%description -l pl.UTF-8
+Biblioteka rozszerzeÅ„ do Xfce opracowana przez os-cillation.
 
 %package -n xfce-preferred-applications
 Summary:	The Xfce Preferred Applications framework
-Summary(pl):	Struktura Preferowanych Aplikacji Xfce
+Summary(pl.UTF-8):   Struktura Preferowanych Aplikacji Xfce
 Group:		Applications
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
@@ -51,24 +51,24 @@ Requires:	xfce-mcs-plugins >= %{xfce_version}
 %description -n xfce-preferred-applications
 The Xfce Preferred Applications framework.
 
-%description -n xfce-preferred-applications -l pl
+%description -n xfce-preferred-applications -l pl.UTF-8
 Struktura Preferowanych Aplikacji Xfce.
 
 %package apidocs
 Summary:	libexo API documentation
-Summary(pl):	Dokumentacja API libexo
+Summary(pl.UTF-8):   Dokumentacja API libexo
 Group:		Documentation
 Requires:	gtk-doc-common
 
 %description apidocs
 libexo API documentation.
 
-%description apidocs -l pl
+%description apidocs -l pl.UTF-8
 Dokumentacja API libexo.
 
 %package devel
 Summary:	Header files for libexo library
-Summary(pl):	Pliki nag³ówkowe biblioteki libexo
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe biblioteki libexo
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libxfce4util-devel >= %{xfce_version}
@@ -76,24 +76,24 @@ Requires:	libxfce4util-devel >= %{xfce_version}
 %description devel
 Header files for libexo library.
 
-%description devel -l pl
-Pliki nag³ówkowe biblioteki libexo.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe biblioteki libexo.
 
 %package static
 Summary:	Static libexo library
-Summary(pl):	Statyczna biblioteka libexo
+Summary(pl.UTF-8):   Statyczna biblioteka libexo
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libexo library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka libexo.
 
 %package -n python-exo
 Summary:	Python binding for libexo library
-Summary(pl):	Wi±zania Pythona do biblioteki libexo
+Summary(pl.UTF-8):   WiÄ…zania Pythona do biblioteki libexo
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
@@ -101,20 +101,20 @@ Requires:	%{name} = %{version}-%{release}
 %description -n python-exo
 Python binding for libexo library.
 
-%description -n python-exo -l pl
-Wi±zania Pythona do biblioteki libexo.
+%description -n python-exo -l pl.UTF-8
+WiÄ…zania Pythona do biblioteki libexo.
 
 %package -n python-exo-devel
 Summary:	Development files for libexo Python bindings
-Summary(pl):	Pliki programistyczne wi±zañ Pythona do libexo
+Summary(pl.UTF-8):   Pliki programistyczne wiÄ…zaÅ„ Pythona do libexo
 Group:		Libraries/Python
 Requires:	python-exo = %{version}-%{release}
 
 %description -n python-exo-devel
 Development files for libexo Python bindings.
 
-%description -n python-exo-devel -l pl
-Pliki programistyczne wi±zañ Pythona do libexo.
+%description -n python-exo-devel -l pl.UTF-8
+Pliki programistyczne wiÄ…zaÅ„ Pythona do libexo.
 
 %prep
 %setup -q -n exo-%{version}
