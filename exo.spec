@@ -5,7 +5,7 @@
 %define		xfce_version	4.4.0
 #
 Summary:	Extension library to Xfce developed by os-cillation
-Summary(pl.UTF-8):   Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
+Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		libexo
 Version:	0.3.2
 Release:	1
@@ -42,7 +42,7 @@ Biblioteka rozszerzeń do Xfce opracowana przez os-cillation.
 
 %package -n xfce-preferred-applications
 Summary:	The Xfce Preferred Applications framework
-Summary(pl.UTF-8):   Struktura Preferowanych Aplikacji Xfce
+Summary(pl.UTF-8):	Struktura Preferowanych Aplikacji Xfce
 Group:		Applications
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
@@ -56,7 +56,7 @@ Struktura Preferowanych Aplikacji Xfce.
 
 %package apidocs
 Summary:	libexo API documentation
-Summary(pl.UTF-8):   Dokumentacja API libexo
+Summary(pl.UTF-8):	Dokumentacja API libexo
 Group:		Documentation
 Requires:	gtk-doc-common
 
@@ -68,7 +68,7 @@ Dokumentacja API libexo.
 
 %package devel
 Summary:	Header files for libexo library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki libexo
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libexo
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libxfce4util-devel >= %{xfce_version}
@@ -81,7 +81,7 @@ Pliki nagłówkowe biblioteki libexo.
 
 %package static
 Summary:	Static libexo library
-Summary(pl.UTF-8):   Statyczna biblioteka libexo
+Summary(pl.UTF-8):	Statyczna biblioteka libexo
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -93,7 +93,7 @@ Statyczna biblioteka libexo.
 
 %package -n python-exo
 Summary:	Python binding for libexo library
-Summary(pl.UTF-8):   Wiązania Pythona do biblioteki libexo
+Summary(pl.UTF-8):	Wiązania Pythona do biblioteki libexo
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
@@ -106,7 +106,7 @@ Wiązania Pythona do biblioteki libexo.
 
 %package -n python-exo-devel
 Summary:	Development files for libexo Python bindings
-Summary(pl.UTF-8):   Pliki programistyczne wiązań Pythona do libexo
+Summary(pl.UTF-8):	Pliki programistyczne wiązań Pythona do libexo
 Group:		Libraries/Python
 Requires:	python-exo = %{version}-%{release}
 
