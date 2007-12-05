@@ -2,17 +2,17 @@
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 #
-%define		xfce_version	4.4.0
+%define		xfce_version	4.4.2
 #
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		libexo
-Version:	0.3.2
+Version:	0.3.4
 Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/exo-%{version}.tar.bz2
-# Source0-md5:	8b73acc98d0938d1193b31316823b6db
+# Source0-md5:	7a1af943b1df32b6f89ae91823118a22
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -30,7 +30,7 @@ BuildRequires:	python-pygtk-devel >= 2:2.10.3
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	xfce-mcs-manager-devel >= %{xfce_version}
-BuildRequires:	xfce4-dev-tools >= %{xfce_version}
+BuildRequires:	xfce4-dev-tools >= 4.4.0.1
 BuildRequires:	xorg-lib-libXt-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
