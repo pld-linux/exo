@@ -13,6 +13,7 @@ License:	GPL v2
 Group:		Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/exo-%{version}.tar.bz2
 # Source0-md5:	7a1af943b1df32b6f89ae91823118a22
+Patch0:		%{name}-locale-names.patch
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -118,6 +119,10 @@ Pliki programistyczne wiązań Pythona do libexo.
 
 %prep
 %setup -q -n exo-%{version}
+%patch0 -p1
+
+mv -f po/{pt_PT,pt}.po
+mv -f po/{nb_NO,nb}.po
 
 %build
 %{__intltoolize}
