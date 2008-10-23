@@ -8,12 +8,13 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		libexo
 Version:	0.3.4
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/exo-%{version}.tar.bz2
 # Source0-md5:	7a1af943b1df32b6f89ae91823118a22
 Patch0:		%{name}-locale-names.patch
+Patch1:		%{name}-teardown-crypto-on-eject.patch
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -120,6 +121,7 @@ Pliki programistyczne wiązań Pythona do libexo.
 %prep
 %setup -q -n exo-%{version}
 %patch0 -p1
+%patch1 -p0
 
 mv -f po/{pt_PT,pt}.po
 mv -f po/{nb_NO,nb}.po
