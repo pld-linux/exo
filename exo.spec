@@ -1,3 +1,5 @@
+# TODO:
+# - rename to exo.spec (like tar name)
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
