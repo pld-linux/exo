@@ -1,5 +1,3 @@
-# TODO:
-# - rename to exo.spec (like tar name)
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
@@ -8,12 +6,12 @@
 #
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
-Name:		libexo
+Name:		exo
 Version:	0.3.100
 Release:	1
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/exo-%{version}.tar.bz2
+Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	ebded97ff55f43cd0fe6b16242992ecf
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
@@ -32,6 +30,8 @@ BuildRequires:	python-pygtk-devel >= 2:2.10.3
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	xfce4-dev-tools >= 4.6.0
+Provides:	libexo
+Obsoletes:	libexo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -59,6 +59,8 @@ Summary:	libexo API documentation
 Summary(pl.UTF-8):	Dokumentacja API libexo
 Group:		Documentation
 Requires:	gtk-doc-common
+Provides:	libexo-apidocs
+Obsoletes:	libexo-apidocs
 
 %description apidocs
 libexo API documentation.
@@ -74,6 +76,8 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	gtk+2-devel >= 2:2.10.6
 Requires:	hal-devel >= 0.5.7
 Requires:	libxfce4util-devel >= %{xfce_version}
+Provides:	libexo-devel
+Obsoletes:	libexo-devel
 
 %description devel
 Header files for libexo library.
@@ -86,6 +90,8 @@ Summary:	Static libexo library
 Summary(pl.UTF-8):	Statyczna biblioteka libexo
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+Provides:	libexo-static
+Obsoletes:	libexo-static
 
 %description static
 Static libexo library.
@@ -119,7 +125,7 @@ Development files for libexo Python bindings.
 Pliki programistyczne wiązań Pythona do libexo.
 
 %prep
-%setup -q -n exo-%{version}
+%setup -q
 
 %build
 %{__intltoolize}
@@ -150,7 +156,7 @@ rm -f $RPM_BUILD_ROOT%{py_sitedir}/exo-0.3/*.{la,a}
 
 %py_postclean
 
-%find_lang %{name}-0.3
+%find_lang libexo-0.3
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -164,7 +170,7 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-n xfce-preferred-applications
 %update_icon_cache hicolor
 
-%files -f %{name}-0.3.lang
+%files -f libexo-0.3.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog HACKING NEWS README TODO
 %attr(755,root,root) %{_libdir}/libexo-0.3.so.*.*.*
