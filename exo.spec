@@ -1,5 +1,6 @@
 #
 # Conditional build:
+%bcond_without	apidocs		# disable gtk-doc
 %bcond_without	static_libs	# don't build static library
 #
 %define		xfce_version	4.6.0
@@ -18,7 +19,8 @@ BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2:2.10.6
-BuildRequires:	gtk-doc >= 1.7
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.7}
+BuildRequires:	gtk-doc-automake
 BuildRequires:	hal-devel >= 0.5.7
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libnotify-devel >= 0.4.0
@@ -135,12 +137,13 @@ Pliki programistyczne wiązań Pythona do libexo.
 %{__automake}
 %{__autoconf}
 %configure \
+	--%{?with_apidocs:en}%{!?with_apidocs:dis}able-gtk-doc \
 	--enable-hal \
-	--enable-gtk-doc \
 	--enable-notifications \
+	--enable-python \
 	--with-html-dir=%{_gtkdocdir} \
-	%{!?with_static_libs:--disable-static} \
-	--enable-python
+	%{!?with_static_libs:--disable-static}
+
 %{__make}
 
 %install
@@ -153,6 +156,8 @@ mv $RPM_BUILD_ROOT%{_datadir}/locale/pt{_PT,}
 mv $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
 
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/exo-0.3/*.{la,a}
+
+%{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo}
 
 %py_postclean
 
@@ -201,9 +206,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/apps/applications-other.png
 %{_mandir}/man1/*.1*
 
+%if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
 %{_gtkdocdir}/exo
+%endif
 
 %files devel
 %defattr(644,root,root,755)
