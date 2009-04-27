@@ -3,17 +3,17 @@
 %bcond_without	apidocs		# disable gtk-doc
 %bcond_without	static_libs	# don't build static library
 #
-%define		xfce_version	4.6.0
+%define		xfce_version	4.6.1
 #
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	0.3.100
-Release:	2
+Version:	0.3.101
+Release:	1
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	ebded97ff55f43cd0fe6b16242992ecf
+# Source0-md5:	1c0eebb360f53eab70454b70e1bde36e
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -152,9 +152,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT%{_datadir}/locale/pt{_PT,}
-mv $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
-
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/exo-0.3/*.{la,a}
 
 %{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo}
@@ -192,9 +189,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/exo-mount-notify-0.3
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/*.rc
 %{_datadir}/xfce4/doc/C/*
+%lang(da) %{_datadir}/xfce4/doc/da/*
 %lang(es) %{_datadir}/xfce4/doc/es/*
 %lang(fr) %{_datadir}/xfce4/doc/fr/*
+%lang(gl) %{_datadir}/xfce4/doc/gl/*
 %lang(id) %{_datadir}/xfce4/doc/id/*
+%lang(it) %{_datadir}/xfce4/doc/it/*
 %lang(ja) %{_datadir}/xfce4/doc/ja/*
 %lang(pt_BR) %{_datadir}/xfce4/doc/pt_BR/*
 %lang(tr) %{_datadir}/xfce4/doc/tr/*
