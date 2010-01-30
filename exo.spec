@@ -9,7 +9,7 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
 Version:	0.3.101
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/%{name}-%{version}.tar.bz2
@@ -130,6 +130,7 @@ Pliki programistyczne wiązań Pythona do libexo.
 %setup -q
 
 %build
+%{?with_apidocs:%{__gtkdocize}}
 %{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
