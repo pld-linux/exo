@@ -17,6 +17,7 @@ Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/%{name}-%{version}
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
+BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2:2.10.6
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.7}
