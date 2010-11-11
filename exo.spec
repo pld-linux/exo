@@ -9,7 +9,7 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
 Version:	0.3.101
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/%{name}-%{version}.tar.bz2
@@ -33,6 +33,7 @@ BuildRequires:	python-pygtk-devel >= 2:2.10.3
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	xfce4-dev-tools >= 4.6.0
+Requires:	xfce4-dirs >= 4.6
 Provides:	libexo
 Obsoletes:	libexo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -190,16 +191,24 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/exo-helper-0.3
 %attr(755,root,root) %{_libdir}/exo-mount-notify-0.3
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/*.rc
-%{_datadir}/xfce4/doc/C/*
-%lang(da) %{_datadir}/xfce4/doc/da/*
-%lang(es) %{_datadir}/xfce4/doc/es/*
-%lang(fr) %{_datadir}/xfce4/doc/fr/*
-%lang(gl) %{_datadir}/xfce4/doc/gl/*
-%lang(id) %{_datadir}/xfce4/doc/id/*
-%lang(it) %{_datadir}/xfce4/doc/it/*
-%lang(ja) %{_datadir}/xfce4/doc/ja/*
-%lang(pt_BR) %{_datadir}/xfce4/doc/pt_BR/*
-%lang(tr) %{_datadir}/xfce4/doc/tr/*
+%{_datadir}/xfce4/doc/C/*.html
+%{_datadir}/xfce4/doc/C/images/*.png
+%lang(da) %{_datadir}/xfce4/doc/da/*.html
+%lang(es) %{_datadir}/xfce4/doc/es/*.html
+%lang(es) %{_datadir}/xfce4/doc/es/images/*.png
+%lang(fr) %{_datadir}/xfce4/doc/fr/*.html
+%lang(fr) %{_datadir}/xfce4/doc/fr/images/*.png
+%lang(gl) %{_datadir}/xfce4/doc/gl/*.html
+%lang(id) %{_datadir}/xfce4/doc/id/*.html
+%lang(id) %{_datadir}/xfce4/doc/id/images/*.png
+%lang(it) %{_datadir}/xfce4/doc/it/*.html
+%lang(it) %{_datadir}/xfce4/doc/it/images/*.png
+%lang(ja) %{_datadir}/xfce4/doc/ja/*.html
+%lang(ja) %{_datadir}/xfce4/doc/ja/images/*.png
+%lang(pt_BR) %{_datadir}/xfce4/doc/pt_BR/*.html
+%lang(pt_BR) %{_datadir}/xfce4/doc/pt_BR/images/*.png
+%lang(tr) %{_datadir}/xfce4/doc/tr/*.html
+%lang(tr) %{_datadir}/xfce4/doc/tr/images/*.png
 %dir %{_datadir}/xfce4/helpers
 %{_datadir}/xfce4/helpers/*.desktop
 %{_desktopdir}/*.desktop
