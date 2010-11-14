@@ -9,7 +9,7 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
 Version:	0.3.107
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/%{name}-%{version}.tar.bz2
@@ -158,6 +158,8 @@ rm -rf $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/exo-0.3/*.{la,a}
 
 %{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo}
+
+rm -r $RPM_BUILD_ROOT%{_datadir}/locale/ur_PK
 
 %py_postclean
 
