@@ -9,7 +9,7 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
 Version:	0.3.107
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/%{name}-%{version}.tar.bz2
@@ -177,7 +177,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f libexo-0.3.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog HACKING NEWS README TODO
+%doc AUTHORS ChangeLog NEWS README THANKS TODO
 %attr(755,root,root) %{_libdir}/libexo-0.3.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libexo-0.3.so.0
 %attr(755,root,root) %{_libdir}/libexo-hal-0.3.so.*.*.*
@@ -193,22 +193,30 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/*.rc
 %{_datadir}/xfce4/doc/C/*.html
 %{_datadir}/xfce4/doc/C/images/*.png
+%lang(da) %{_datadir}/xfce4/doc/am/*.html
+%lang(da) %{_datadir}/xfce4/doc/am/images/*.png
 %lang(da) %{_datadir}/xfce4/doc/da/*.html
+%lang(da) %{_datadir}/xfce4/doc/da/images/*.png
 %lang(es) %{_datadir}/xfce4/doc/es/*.html
 %lang(es) %{_datadir}/xfce4/doc/es/images/*.png
 %lang(fr) %{_datadir}/xfce4/doc/fr/*.html
 %lang(fr) %{_datadir}/xfce4/doc/fr/images/*.png
 %lang(gl) %{_datadir}/xfce4/doc/gl/*.html
+%lang(gl) %{_datadir}/xfce4/doc/gl/images/*.png
 %lang(id) %{_datadir}/xfce4/doc/id/*.html
 %lang(id) %{_datadir}/xfce4/doc/id/images/*.png
 %lang(it) %{_datadir}/xfce4/doc/it/*.html
 %lang(it) %{_datadir}/xfce4/doc/it/images/*.png
 %lang(ja) %{_datadir}/xfce4/doc/ja/*.html
 %lang(ja) %{_datadir}/xfce4/doc/ja/images/*.png
+%lang(pt) %{_datadir}/xfce4/doc/pt/*.html
+%lang(pt) %{_datadir}/xfce4/doc/pt/images/*.png
 %lang(pt_BR) %{_datadir}/xfce4/doc/pt_BR/*.html
 %lang(pt_BR) %{_datadir}/xfce4/doc/pt_BR/images/*.png
 %lang(tr) %{_datadir}/xfce4/doc/tr/*.html
 %lang(tr) %{_datadir}/xfce4/doc/tr/images/*.png
+%lang(ug) %{_datadir}/xfce4/doc/ug/*.html
+%lang(ug) %{_datadir}/xfce4/doc/ug/images/*.png
 %dir %{_datadir}/xfce4/helpers
 %{_datadir}/xfce4/helpers/*.desktop
 %{_desktopdir}/*.desktop
@@ -220,7 +228,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/exo
+%{_gtkdocdir}/exo-0.3
 %endif
 
 %files devel
