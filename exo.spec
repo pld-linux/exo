@@ -3,17 +3,17 @@
 %bcond_without	apidocs		# disable gtk-doc
 %bcond_without	static_libs	# don't build static library
 #
-%define		xfce_version	4.6.1
+%define		xfce_version	4.6.2
 #
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	0.3.101
-Release:	5
+Version:	0.3.107
+Release:	1
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	1c0eebb360f53eab70454b70e1bde36e
+# Source0-md5:	3a92cca0c99ee940db4410891c9e8498
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
