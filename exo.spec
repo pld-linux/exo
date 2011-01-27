@@ -1,41 +1,38 @@
 #
-# TODO:
-#	- html doc needs love
-#
 # Conditional build:
 %bcond_without	apidocs		# disable gtk-doc
 %bcond_without	static_libs	# don't build static library
 #
-%define		xfce_version	4.8pre1
+%define		xfce_version	4.8.0
 #
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	0.5.4
-Release:	0.1
+Version:	0.6.0
+Release:	1
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	http://www.xfce.org/archive/xfce/%{xfce_version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	18cfb12de8f11c6a6fe06d16eff0fa1c
+Source0:	http://archive.xfce.org/xfce/4.8/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	ac9deafdf9de426d8a03855ac549f424
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+2-devel >= 2:2.10.6
-%{?with_apidocs:BuildRequires:	gtk-doc >= 1.7}
+BuildRequires:	glib2-devel >= 1:2.26.0
+BuildRequires:	gtk+2-devel >= 2:2.14.0
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
 BuildRequires:	gtk-doc-automake
 BuildRequires:	intltool >= 0.35.0
-BuildRequires:	libnotify-devel >= 0.4.0
 BuildRequires:	libtool
-#BuildRequires:	libxfce4util-devel >= %{xfce_version}
-BuildRequires:	libxfce4util-devel >= 4.7.0
+BuildRequires:	libxfce4util-devel >= %{xfce_version}
 BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
 BuildRequires:	python-pygtk-devel >= 2:2.10.3
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.311
-BuildRequires:	xfce4-dev-tools >= 4.6.0
+BuildRequires:	rpmbuild(macros) >= 1.601
+BuildRequires:	xfce4-dev-tools >= 4.8.0
+Requires(post,postun):	glib2 >= 1:2.26.0
 Requires:	xfce4-dirs >= 4.6
 Provides:	libexo
 Obsoletes:	libexo
@@ -51,9 +48,8 @@ Biblioteka rozszerzeń do Xfce opracowana przez os-cillation.
 Summary:	The Xfce Preferred Applications framework
 Summary(pl.UTF-8):	Struktura Preferowanych Aplikacji Xfce
 Group:		X11/Applications
-Requires(post,postun):	gtk+2
-Requires(post,postun):	hicolor-icon-theme
 Requires:	%{name} = %{version}-%{release}
+Requires:	hicolor-icon-theme
 
 %description -n xfce-preferred-applications
 The Xfce Preferred Applications framework.
@@ -80,9 +76,8 @@ Summary:	Header files for libexo library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libexo
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	gtk+2-devel >= 2:2.10.6
-#Requires:	libxfce4util-devel >= %{xfce_version}
-Requires:	libxfce4util-devel >= 4.7.0
+Requires:	gtk+2-devel >= 2:2.14.0
+Requires:	libxfce4util-devel >= %{xfce_version}
 Provides:	libexo-devel
 Obsoletes:	libexo-devel
 
@@ -147,7 +142,8 @@ Pliki programistyczne wiązań Pythona do libexo.
 	--enable-notifications \
 	--enable-python \
 	--with-html-dir=%{_gtkdocdir} \
-	%{!?with_static_libs:--disable-static}
+	%{!?with_static_libs:--disable-static} \
+	--disable-silent-rules
 
 %{__make}
 
@@ -157,8 +153,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm $RPM_BUILD_ROOT%{py_sitedir}/exo-0.5/*.{a,la}
-rm $RPM_BUILD_ROOT%{_libdir}/gio/modules/*.{a,la}
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/exo-*/*.{a,la}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gio/modules/*.{a,la}
+
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/{tl_PH,ur_PK}
 
 %{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo}
 
@@ -202,13 +200,15 @@ exit 0
 %attr(755,root,root) %{_libdir}/xfce4/exo-1/exo-compose-mail-1
 %attr(755,root,root) %{_libdir}/xfce4/exo-1/exo-helper-1
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/*.rc
-# this needs love
+%dir %{_datadir}/doc/exo
+%dir %{_datadir}/doc/exo/html
 %{_datadir}/doc/exo/html/exo-preferred-applications.css
 %{_datadir}/doc/exo/html/C
 %lang(bn) %{_datadir}/doc/exo/html/bn
 %lang(ca) %{_datadir}/doc/exo/html/ca
 %lang(da) %{_datadir}/doc/exo/html/da
 %lang(de) %{_datadir}/doc/exo/html/de
+%lang(el) %{_datadir}/doc/exo/html/el
 %lang(es) %{_datadir}/doc/exo/html/es
 %lang(fr) %{_datadir}/doc/exo/html/fr
 %lang(gl) %{_datadir}/doc/exo/html/gl
@@ -218,10 +218,10 @@ exit 0
 %lang(pt) %{_datadir}/doc/exo/html/pt
 %lang(pt_BR) %{_datadir}/doc/exo/html/pt_BR
 %lang(ru) %{_datadir}/doc/exo/html/ru
+%lang(sv) %{_datadir}/doc/exo/html/sv
 %lang(tr) %{_datadir}/doc/exo/html/tr
 %lang(ug) %{_datadir}/doc/exo/html/ug
 %lang(zh_CN) %{_datadir}/doc/exo/html/zh_CN
-###################
 %dir %{_datadir}/xfce4/helpers
 %{_datadir}/xfce4/helpers/*.desktop
 %{_desktopdir}/*.desktop
@@ -251,12 +251,12 @@ exit 0
 
 %files -n python-exo
 %defattr(644,root,root,755)
-%dir %{py_sitedir}/exo-0.5
-%attr(755,root,root) %{py_sitedir}/exo-0.5/_exo.so
-%dir %{py_sitedir}/exo-0.5/exo
-%{py_sitedir}/exo-0.5/exo/*.py[co]
+%dir %{py_sitedir}/exo-0.6
+%attr(755,root,root) %{py_sitedir}/exo-0.6/_exo.so
+%dir %{py_sitedir}/exo-0.6/exo
+%{py_sitedir}/exo-0.6/exo/*.py[co]
 %{py_sitescriptdir}/*.py[co]
 
 %files -n python-exo-devel
 %defattr(644,root,root,755)
-%{_datadir}/pygtk/2.0/defs/exo-0.5
+%{_datadir}/pygtk/2.0/defs/exo-0.6
