@@ -9,7 +9,7 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
 Version:	0.3.107
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.xfce.org/archive/xfce-%{xfce_version}/src/%{name}-%{version}.tar.bz2
@@ -33,6 +33,8 @@ BuildRequires:	python-pygtk-devel >= 2:2.10.3
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	xfce4-dev-tools >= 4.6.0
+Requires(post,postun):	gtk-update-icon-cache
+Requires(post,postun):	hicolor-icon-theme
 Requires:	xfce4-dirs >= 4.6
 Provides:	libexo
 Obsoletes:	libexo
