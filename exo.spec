@@ -19,7 +19,7 @@ BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.26.0
+BuildRequires:	glib2-devel >= 1:2.27.0
 BuildRequires:	gtk+2-devel >= 2:2.14.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
 BuildRequires:	gtk-doc-automake
@@ -32,7 +32,7 @@ BuildRequires:	python-pygtk-devel >= 2:2.10.3
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	xfce4-dev-tools >= 4.8.0
-Requires(post,postun):	glib2 >= 1:2.26.0
+Requires:	glib2 >= 1:2.27.0
 Requires:	xfce4-dirs >= 4.6
 Provides:	libexo
 Obsoletes:	libexo
@@ -49,6 +49,7 @@ Summary:	The Xfce Preferred Applications framework
 Summary(pl.UTF-8):	Struktura Preferowanych Aplikacji Xfce
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
+Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 
 %description -n xfce-preferred-applications
@@ -154,7 +155,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/exo-*/*.{a,la}
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gio/modules/*.{a,la}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/{tl_PH,ur_PK}
 
@@ -167,17 +168,8 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-/sbin/ldconfig
-umask 022
-%{_bindir}/gio-querymodules %{_libdir}/gio/modules
-exit 0
-
-%postun
-/sbin/ldconfig
-umask 022
-%{_bindir}/gio-querymodules %{_libdir}/gio/modules
-exit 0
+%post	-p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %post	-n xfce-preferred-applications
 %update_icon_cache hicolor
@@ -190,7 +182,6 @@ exit 0
 %doc AUTHORS ChangeLog HACKING NEWS README TODO
 %attr(755,root,root) %{_libdir}/libexo-1.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libexo-1.so.0
-%attr(755,root,root) %{_libdir}/gio/modules/libexo-module-1.so
 %{_pixmapsdir}/exo-1
 
 %files -n xfce-preferred-applications
@@ -239,7 +230,6 @@ exit 0
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libexo-1.so
-%{_libdir}/libexo-1.la
 %{_includedir}/exo-1
 %{_pkgconfigdir}/exo-1.pc
 
