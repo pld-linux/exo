@@ -157,7 +157,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/exo-*/*.{a,la}
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/{tl_PH,ur_PK}
+mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{tl_PH,tl}
+# already exists as ur
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ur_PK
 
 %{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo}
 
