@@ -162,28 +162,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/xfce4/exo-1/exo-compose-mail-1
 %attr(755,root,root) %{_libdir}/xfce4/exo-1/exo-helper-1
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/*.rc
-#%dir %{_datadir}/doc/exo
-#%dir %{_datadir}/doc/exo/html
-#%{_datadir}/doc/exo/html/exo-preferred-applications.css
-#%{_datadir}/doc/exo/html/C
-#%lang(bn) %{_datadir}/doc/exo/html/bn
-#%lang(ca) %{_datadir}/doc/exo/html/ca
-#%lang(da) %{_datadir}/doc/exo/html/da
-#%lang(de) %{_datadir}/doc/exo/html/de
-#%lang(el) %{_datadir}/doc/exo/html/el
-#%lang(es) %{_datadir}/doc/exo/html/es
-#%lang(fr) %{_datadir}/doc/exo/html/fr
-#%lang(gl) %{_datadir}/doc/exo/html/gl
-#%lang(id) %{_datadir}/doc/exo/html/id
-#%lang(it) %{_datadir}/doc/exo/html/it
-#%lang(ja) %{_datadir}/doc/exo/html/ja
-#%lang(pt) %{_datadir}/doc/exo/html/pt
-#%lang(pt_BR) %{_datadir}/doc/exo/html/pt_BR
-#%lang(ru) %{_datadir}/doc/exo/html/ru
-#%lang(sv) %{_datadir}/doc/exo/html/sv
-#%lang(tr) %{_datadir}/doc/exo/html/tr
-#%lang(ug) %{_datadir}/doc/exo/html/ug
-#%lang(zh_CN) %{_datadir}/doc/exo/html/zh_CN
 %dir %{_datadir}/xfce4/helpers
 %{_datadir}/xfce4/helpers/*.desktop
 %{_desktopdir}/*.desktop
