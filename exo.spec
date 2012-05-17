@@ -29,8 +29,6 @@ BuildRequires:	libxfce4ui-devel >= %{xfce_version}
 BuildRequires:	libxfce4util-devel >= %{xfce_version}
 BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
-BuildRequires:	python-pygtk-devel >= 2:2.10.3
-BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	xfce4-dev-tools >= 4.10.0
 Requires:	glib2 >= 1:2.27.0
@@ -103,31 +101,6 @@ Static libexo library.
 %description static -l pl.UTF-8
 Statyczna biblioteka libexo.
 
-%package -n python-exo
-Summary:	Python binding for libexo library
-Summary(pl.UTF-8):	Wiązania Pythona do biblioteki libexo
-Group:		Libraries/Python
-Requires:	%{name} = %{version}-%{release}
-%pyrequires_eq	python-libs
-
-%description -n python-exo
-Python binding for libexo library.
-
-%description -n python-exo -l pl.UTF-8
-Wiązania Pythona do biblioteki libexo.
-
-%package -n python-exo-devel
-Summary:	Development files for libexo Python bindings
-Summary(pl.UTF-8):	Pliki programistyczne wiązań Pythona do libexo
-Group:		Libraries/Python
-Requires:	python-exo = %{version}-%{release}
-
-%description -n python-exo-devel
-Development files for libexo Python bindings.
-
-%description -n python-exo-devel -l pl.UTF-8
-Pliki programistyczne wiązań Pythona do libexo.
-
 %prep
 %setup -q
 
@@ -141,8 +114,6 @@ Pliki programistyczne wiązań Pythona do libexo.
 %{__autoconf}
 %configure \
 	--%{?with_apidocs:en}%{!?with_apidocs:dis}able-gtk-doc \
-	--enable-notifications \
-	--enable-python \
 	--with-html-dir=%{_gtkdocdir} \
 	%{!?with_static_libs:--disable-static} \
 	--disable-silent-rules
@@ -162,8 +133,6 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{tl_PH,tl}
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ur_PK
 
 %{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo}
-
-%py_postclean
 
 %find_lang exo-1
 
@@ -240,15 +209,3 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libexo-1.a
 %endif
-
-%files -n python-exo
-%defattr(644,root,root,755)
-%dir %{py_sitedir}/exo-0.6
-%attr(755,root,root) %{py_sitedir}/exo-0.8/_exo.so
-%dir %{py_sitedir}/exo-0.8/exo
-%{py_sitedir}/exo-0.8/exo/*.py[co]
-%{py_sitescriptdir}/*.py[co]
-
-%files -n python-exo-devel
-%defattr(644,root,root,755)
-%{_datadir}/pygtk/2.0/defs/exo-0.6
