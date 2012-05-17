@@ -155,7 +155,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/exo-*/*.{a,la}
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{tl_PH,tl}
