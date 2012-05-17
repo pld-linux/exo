@@ -3,17 +3,17 @@
 %bcond_without	apidocs		# disable gtk-doc
 %bcond_without	static_libs	# don't build static library
 #
-%define		xfce_version	4.8.0
+%define		xfce_version	4.10.0
 #
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	0.6.0
-Release:	2
+Version:	0.8.0
+Release:	1
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	http://archive.xfce.org/xfce/4.8/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	ac9deafdf9de426d8a03855ac549f424
+Source0:	http://archive.xfce.org/xfce/4.10/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	189bd19210e1d7d8601be1cdf27bf259
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -31,7 +31,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	python-pygtk-devel >= 2:2.10.3
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.601
-BuildRequires:	xfce4-dev-tools >= 4.8.0
+BuildRequires:	xfce4-dev-tools >= 4.10.0
 Requires:	glib2 >= 1:2.27.0
 Requires:	xfce4-dirs >= 4.6
 Provides:	libexo
