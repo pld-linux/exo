@@ -123,13 +123,11 @@ Statyczna biblioteka libexo.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
-#mv -f $RPM_BUILD_ROOT%{_localedir}/{tl_PH,tl}
 # already exists as ur
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ur_PK
 
