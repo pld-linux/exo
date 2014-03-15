@@ -1,0 +1,25 @@
+diff -urN exo-0.10.2.orig/exo-helper/helpers/Makefile.am exo-0.10.2/exo-helper/helpers/Makefile.am
+--- exo-0.10.2.orig/exo-helper/helpers/Makefile.am	2012-12-27 13:50:31.000000000 +0100
++++ exo-0.10.2/exo-helper/helpers/Makefile.am	2014-03-15 16:42:03.144495543 +0100
+@@ -26,6 +26,7 @@
+ 	konqueror.desktop.in.in						\
+ 	links.desktop.in.in						\
+ 	lynx.desktop.in.in						\
++	mate-terminal.desktop.in.in					\
+ 	midori.desktop.in.in						\
+ 	mozilla-browser.desktop.in.in					\
+ 	mozilla-mailer.desktop.in.in					\
+diff -urN exo-0.10.2.orig/exo-helper/helpers/mate-terminal.desktop.in.in exo-0.10.2/exo-helper/helpers/mate-terminal.desktop.in.in
+--- exo-0.10.2.orig/exo-helper/helpers/mate-terminal.desktop.in.in	1970-01-01 01:00:00.000000000 +0100
++++ exo-0.10.2/exo-helper/helpers/mate-terminal.desktop.in.in	2014-03-15 16:41:19.670633465 +0100
+@@ -0,0 +1,10 @@
++[Desktop Entry]
++Version=1.0
++Icon=utilities-terminal
++Type=X-XFCE-Helper
++_Name=MATE Terminal
++StartupNotify=true
++X-XFCE-Binaries=mate-terminal;
++X-XFCE-Category=TerminalEmulator
++X-XFCE-Commands=%B;
++X-XFCE-CommandsWithParameter=%B -x %s;

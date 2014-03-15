@@ -8,11 +8,12 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
 Version:	0.10.2
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://archive.xfce.org/src/xfce/exo/0.10/%{name}-%{version}.tar.bz2
 # Source0-md5:	c70f2a217811bfba2e62f938d4b8f748
+Patch0:		mate-terminal.patch
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -102,6 +103,7 @@ Statyczna biblioteka libexo.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %{__sed} -i -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/' configure.ac
 
