@@ -18,7 +18,7 @@ URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	docbook-dtd412-xml
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.27.0
 BuildRequires:	gtk+2-devel >= 2:2.14.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
