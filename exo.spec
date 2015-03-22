@@ -8,7 +8,7 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
 Version:	0.10.2
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://archive.xfce.org/src/xfce/exo/0.10/%{name}-%{version}.tar.bz2
