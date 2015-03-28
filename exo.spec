@@ -7,20 +7,20 @@
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	0.10.2
-Release:	3
+Version:	0.10.4
+Release:	1
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://archive.xfce.org/src/xfce/exo/0.10/%{name}-%{version}.tar.bz2
-# Source0-md5:	c70f2a217811bfba2e62f938d4b8f748
+# Source0-md5:	fe54dad8b897af36628da46b33844f95
 Patch0:		mate-terminal.patch
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
-BuildRequires:	glib2-devel >= 1:2.27.0
-BuildRequires:	gtk+2-devel >= 2:2.14.0
+BuildRequires:	glib2-devel >= 1:2.30.0
+BuildRequires:	gtk+2-devel >= 2:2.24.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
 BuildRequires:	gtk-doc-automake
 BuildRequires:	intltool >= 0.35.0
@@ -107,6 +107,8 @@ Statyczna biblioteka libexo.
 
 %{__sed} -i -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/' configure.ac
 
+mkdir -p m4
+
 %build
 %{?with_apidocs:%{__gtkdocize}}
 %{__intltoolize}
@@ -167,8 +169,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/xfce4/helpers/*.desktop
 %{_desktopdir}/*.desktop
 %{_iconsdir}/hicolor/*/apps/preferences-desktop-default-applications.png
-%{_iconsdir}/hicolor/*/apps/applications-internet.png
-%{_iconsdir}/hicolor/*/apps/applications-other.png
+%{_iconsdir}/hicolor/*/categories/applications-internet.png
+%{_iconsdir}/hicolor/*/categories/applications-other.png
 %{_mandir}/man1/*.1*
 
 %if %{with apidocs}
