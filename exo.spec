@@ -8,7 +8,7 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
 Version:	0.10.4
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://archive.xfce.org/src/xfce/exo/0.10/%{name}-%{version}.tar.bz2
@@ -64,6 +64,9 @@ Group:		Documentation
 Requires:	gtk-doc-common
 Provides:	libexo-apidocs
 Obsoletes:	libexo-apidocs
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 libexo API documentation.
