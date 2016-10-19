@@ -8,7 +8,7 @@ Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
 Version:	0.10.4
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://archive.xfce.org/src/xfce/exo/0.10/%{name}-%{version}.tar.bz2
@@ -163,7 +163,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n xfce-preferred-applications
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/exo-desktop-item-edit
+%attr(755,root,root) %{_bindir}/exo-open
+%attr(755,root,root) %{_bindir}/exo-preferred-applications
 %dir %{_libdir}/xfce4/exo-1
 %attr(755,root,root) %{_libdir}/xfce4/exo-1/exo-compose-mail-1
 %attr(755,root,root) %{_libdir}/xfce4/exo-1/exo-helper-1
@@ -184,6 +186,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/exo-csource
 %attr(755,root,root) %{_libdir}/libexo-1.so
 %{_includedir}/exo-1
 %{_pkgconfigdir}/exo-1.pc
