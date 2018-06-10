@@ -3,16 +3,16 @@
 %bcond_without	apidocs		# disable gtk-doc
 %bcond_with	static_libs	# don't build static library
 
-%define		xfce_version	4.10.0
+%define		xfce_version	4.12.0
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	0.10.7
+Version:	0.12.0
 Release:	1
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	http://archive.xfce.org/src/xfce/exo/0.10/%{name}-%{version}.tar.bz2
-# Source0-md5:	92ca200b8787cdd7494164cbc0ed8200
+Source0:	http://archive.xfce.org/src/xfce/exo/0.12/%{name}-%{version}.tar.bz2
+# Source0-md5:	724afcca224f5fb22b510926d2740e52
 Patch0:		mate-terminal.patch
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
@@ -21,6 +21,7 @@ BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.30.0
 BuildRequires:	gtk+2-devel >= 2:2.24.0
+BuildRequires:	gtk+3-devel
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
 BuildRequires:	gtk-doc-automake
 BuildRequires:	intltool >= 0.35.0
@@ -80,6 +81,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libexo
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	gtk+2-devel >= 2:2.14.0
+Requires:	gtk+3-devel
 Requires:	libxfce4util-devel >= %{xfce_version}
 Provides:	libexo-devel
 Obsoletes:	libexo-devel
@@ -159,6 +161,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog HACKING NEWS README TODO
 %attr(755,root,root) %{_libdir}/libexo-1.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libexo-1.so.0
+%attr(755,root,root) %{_libdir}/libexo-2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libexo-2.so.0
 %{_pixmapsdir}/exo-1
 
 %files -n xfce-preferred-applications
@@ -174,8 +178,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/xfce4/helpers/*.desktop
 %{_desktopdir}/*.desktop
 %{_iconsdir}/hicolor/*/apps/preferences-desktop-default-applications.png
-%{_iconsdir}/hicolor/*/categories/applications-internet.png
-%{_iconsdir}/hicolor/*/categories/applications-other.png
 %{_mandir}/man1/*.1*
 
 %if %{with apidocs}
@@ -188,11 +190,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/exo-csource
 %attr(755,root,root) %{_libdir}/libexo-1.so
+%attr(755,root,root) %{_libdir}/libexo-2.so
 %{_includedir}/exo-1
+%{_includedir}/exo-2
 %{_pkgconfigdir}/exo-1.pc
+%{_pkgconfigdir}/exo-2.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libexo-1.a
+%{_libdir}/libexo-2.a
 %endif
