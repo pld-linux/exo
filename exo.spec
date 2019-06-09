@@ -7,12 +7,12 @@
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	0.12.4
+Version:	0.12.5
 Release:	1
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://archive.xfce.org/src/xfce/exo/0.12/%{name}-%{version}.tar.bz2
-# Source0-md5:	962bbccb38db0aecd4151ca97f6a39bc
+# Source0-md5:	1de1d539262847d49474d20cbebc78ea
 Patch0:		mate-terminal.patch
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.50
@@ -163,16 +163,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libexo-1.so.0
 %attr(755,root,root) %{_libdir}/libexo-2.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libexo-2.so.0
-%{_pixmapsdir}/exo-1
+%{_pixmapsdir}/exo
 
 %files -n xfce-preferred-applications
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/exo-desktop-item-edit
 %attr(755,root,root) %{_bindir}/exo-open
 %attr(755,root,root) %{_bindir}/exo-preferred-applications
-%dir %{_libdir}/xfce4/exo-1
-%attr(755,root,root) %{_libdir}/xfce4/exo-1/exo-compose-mail-1
-%attr(755,root,root) %{_libdir}/xfce4/exo-1/exo-helper-1
+%dir %{_libdir}/xfce4/exo
+%attr(755,root,root) %{_libdir}/xfce4/exo/exo-compose-mail
+%dir %{_libdir}/xfce4/exo-2
+%attr(755,root,root) %{_libdir}/xfce4/exo-2/exo-helper-2
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/*.rc
 %dir %{_datadir}/xfce4/helpers
 %{_datadir}/xfce4/helpers/*.desktop
