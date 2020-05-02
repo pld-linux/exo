@@ -111,6 +111,7 @@ Statyczna biblioteka libexo.
 %patch0 -p1
 
 %{__sed} -i -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/' configure.ac
+%{__sed} -i -e '1s,/usr/bin/env perl,%{__perl},' exo-helper/helpers/exo-compose-mail
 
 mkdir -p m4
 
