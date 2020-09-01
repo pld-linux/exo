@@ -1,38 +1,39 @@
 #
 # Conditional build:
-%bcond_without	apidocs		# disable gtk-doc
-%bcond_with	static_libs	# don't build static library
+%bcond_without	apidocs		# gtk-doc documentation
+%bcond_with	static_libs	# static libraries
 
 %define		xfce_version	4.12.0
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
 Version:	0.12.11
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	http://archive.xfce.org/src/xfce/exo/0.12/%{name}-%{version}.tar.bz2
+Source0:	https://archive.xfce.org/src/xfce/exo/0.12/%{name}-%{version}.tar.bz2
 # Source0-md5:	efeb039d64b3257e39a1a38e75eb19b1
 Patch0:		mate-terminal.patch
 URL:		http://www.os-cillation.com/
-BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake
+BuildRequires:	autoconf >= 2.60
+BuildRequires:	automake >= 1:1.11
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
-BuildRequires:	glib2-devel >= 1:2.30.0
+BuildRequires:	glib2-devel >= 1:2.42.0
 BuildRequires:	gtk+2-devel >= 2:2.24.0
-BuildRequires:	gtk+3-devel
+BuildRequires:	gtk+3-devel >= 3.22.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
 BuildRequires:	gtk-doc-automake
 BuildRequires:	intltool >= 0.35.0
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2.4
 BuildRequires:	libxfce4ui-devel >= %{xfce_version}
 BuildRequires:	libxfce4util-devel >= %{xfce_version}
 BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.601
-BuildRequires:	xfce4-dev-tools >= 4.10.0
-Requires:	glib2 >= 1:2.27.0
+BuildRequires:	xfce4-dev-tools >= 4.12.0
+Requires:	glib2 >= 1:2.42.0
+Requires:	gtk+3 >= 3.22.0
 Requires:	xfce4-dirs >= 4.6
 Provides:	libexo
 Obsoletes:	libexo
@@ -58,30 +59,13 @@ The Xfce Preferred Applications framework.
 %description -n xfce-preferred-applications -l pl.UTF-8
 Struktura Preferowanych Aplikacji Xfce.
 
-%package apidocs
-Summary:	libexo API documentation
-Summary(pl.UTF-8):	Dokumentacja API libexo
-Group:		Documentation
-Requires:	gtk-doc-common
-Provides:	libexo-apidocs
-Obsoletes:	libexo-apidocs
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
-
-%description apidocs
-libexo API documentation.
-
-%description apidocs -l pl.UTF-8
-Dokumentacja API libexo.
-
 %package devel
 Summary:	Header files for libexo library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libexo
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	gtk+2-devel >= 2:2.14.0
-Requires:	gtk+3-devel
+Requires:	gtk+3-devel >= 3.22.0
 Requires:	libxfce4util-devel >= %{xfce_version}
 Provides:	libexo-devel
 Obsoletes:	libexo-devel
@@ -106,11 +90,27 @@ Static libexo library.
 %description static -l pl.UTF-8
 Statyczna biblioteka libexo.
 
+%package apidocs
+Summary:	libexo API documentation
+Summary(pl.UTF-8):	Dokumentacja API libexo
+Group:		Documentation
+Requires:	gtk-doc-common
+Provides:	libexo-apidocs
+Obsoletes:	libexo-apidocs
+%if "%{_rpmversion}" >= "4.6"
+BuildArch:	noarch
+%endif
+
+%description apidocs
+libexo API documentation.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API libexo.
+
 %prep
 %setup -q
 %patch0 -p1
 
-%{__sed} -i -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/' configure.ac
 %{__sed} -i -e '1s,/usr/bin/env perl,%{__perl},' exo-helper/helpers/exo-compose-mail
 
 mkdir -p m4
@@ -124,25 +124,26 @@ mkdir -p m4
 %{__automake}
 %{__autoconf}
 %configure \
-	--%{?with_apidocs:en}%{!?with_apidocs:dis}able-gtk-doc \
-	--with-html-dir=%{_gtkdocdir} \
+	--enable-gtk-doc%{!?with_apidocs:=no} \
+	--disable-silent-rules \
 	%{!?with_static_libs:--disable-static} \
-	--disable-silent-rules
+	--with-html-dir=%{_gtkdocdir}
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libexo*.la
 
-# already exists as ur
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ur_PK
-
-# unknown / unsupported
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{hy_AM,ie}
+# duplicates of hy,ur
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{hy_AM,ur_PK}
+# not supported by glibc (as of 2.32)
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ie
 
 %{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo}
 
@@ -178,18 +179,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/xfce4/exo/exo-compose-mail
 %dir %{_libdir}/xfce4/exo-2
 %attr(755,root,root) %{_libdir}/xfce4/exo-2/exo-helper-2
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/*.rc
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/helpers.rc
 %dir %{_datadir}/xfce4/helpers
 %{_datadir}/xfce4/helpers/*.desktop
-%{_desktopdir}/*.desktop
+%{_desktopdir}/exo-*.desktop
 %{_iconsdir}/hicolor/*/apps/preferences-desktop-default-applications.png
-%{_mandir}/man1/*.1*
-
-%if %{with apidocs}
-%files apidocs
-%defattr(644,root,root,755)
-%{_gtkdocdir}/exo-1
-%endif
+%{_mandir}/man1/exo-open.1*
 
 %files devel
 %defattr(644,root,root,755)
@@ -200,10 +195,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/exo-2
 %{_pkgconfigdir}/exo-1.pc
 %{_pkgconfigdir}/exo-2.pc
+%{_mandir}/man1/exo-csource.1*
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libexo-1.a
 %{_libdir}/libexo-2.a
+%endif
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
+%{_gtkdocdir}/exo-1
 %endif
