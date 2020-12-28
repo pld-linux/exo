@@ -3,24 +3,22 @@
 %bcond_without	apidocs		# gtk-doc documentation
 %bcond_with	static_libs	# static libraries
 
-%define		xfce_version	4.12.0
+%define		xfce_version	4.16.0
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	0.12.11
-Release:	2
+Version:	4.16.0
+Release:	1
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	https://archive.xfce.org/src/xfce/exo/0.12/%{name}-%{version}.tar.bz2
-# Source0-md5:	efeb039d64b3257e39a1a38e75eb19b1
-Patch0:		mate-terminal.patch
+Source0:	https://archive.xfce.org/src/xfce/exo/4.16/%{name}-%{version}.tar.bz2
+# Source0-md5:	0e2cb9c8bbe1993249358e2b0b9d9c54
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.42.0
-BuildRequires:	gtk+2-devel >= 2:2.24.0
 BuildRequires:	gtk+3-devel >= 3.22.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
 BuildRequires:	gtk-doc-automake
@@ -31,7 +29,7 @@ BuildRequires:	libxfce4util-devel >= %{xfce_version}
 BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.601
-BuildRequires:	xfce4-dev-tools >= 4.12.0
+BuildRequires:	xfce4-dev-tools >= 4.16.0
 Requires:	glib2 >= 1:2.42.0
 Requires:	gtk+3 >= 3.22.0
 Requires:	xfce4-dirs >= 4.6
@@ -64,7 +62,6 @@ Summary:	Header files for libexo library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libexo
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	gtk+2-devel >= 2:2.14.0
 Requires:	gtk+3-devel >= 3.22.0
 Requires:	libxfce4util-devel >= %{xfce_version}
 Provides:	libexo-devel
@@ -109,9 +106,6 @@ Dokumentacja API libexo.
 
 %prep
 %setup -q
-%patch0 -p1
-
-%{__sed} -i -e '1s,/usr/bin/env perl,%{__perl},' exo-helper/helpers/exo-compose-mail
 
 mkdir -p m4
 
@@ -126,7 +120,7 @@ mkdir -p m4
 %configure \
 	--enable-gtk-doc%{!?with_apidocs:=no} \
 	--disable-silent-rules \
-	%{!?with_static_libs:--disable-static} \
+	%{?with_static_libs:--enable-static} \
 	--with-html-dir=%{_gtkdocdir}
 
 %{__make}
@@ -143,11 +137,11 @@ rm -rf $RPM_BUILD_ROOT
 # duplicates of hy,ur
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{hy_AM,ur_PK}
 # not supported by glibc (as of 2.32)
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ie
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{fa_IR,hye,ie}
 
-%{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo}
+%{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo-2}
 
-%find_lang exo-1
+%find_lang exo-2
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -161,11 +155,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-n xfce-preferred-applications
 %update_icon_cache hicolor
 
-%files -f exo-1.lang
+%files -f exo-2.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog HACKING NEWS README TODO
-%attr(755,root,root) %{_libdir}/libexo-1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libexo-1.so.0
+%doc AUTHORS ChangeLog HACKING NEWS
 %attr(755,root,root) %{_libdir}/libexo-2.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libexo-2.so.0
 %{_pixmapsdir}/exo
@@ -174,38 +166,23 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/exo-desktop-item-edit
 %attr(755,root,root) %{_bindir}/exo-open
-%attr(755,root,root) %{_bindir}/exo-preferred-applications
-%dir %{_libdir}/xfce4/exo
-%attr(755,root,root) %{_libdir}/xfce4/exo/exo-compose-mail
-%dir %{_libdir}/xfce4/exo-2
-%attr(755,root,root) %{_libdir}/xfce4/exo-2/exo-helper-2
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/xfce4/helpers.rc
-%dir %{_datadir}/xfce4/helpers
-%{_datadir}/xfce4/helpers/*.desktop
-%{_desktopdir}/exo-*.desktop
 %{_iconsdir}/hicolor/*/apps/preferences-desktop-default-applications.png
 %{_mandir}/man1/exo-open.1*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/exo-csource
-%attr(755,root,root) %{_libdir}/libexo-1.so
 %attr(755,root,root) %{_libdir}/libexo-2.so
-%{_includedir}/exo-1
 %{_includedir}/exo-2
-%{_pkgconfigdir}/exo-1.pc
 %{_pkgconfigdir}/exo-2.pc
-%{_mandir}/man1/exo-csource.1*
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libexo-1.a
 %{_libdir}/libexo-2.a
 %endif
 
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/exo-1
+%{_gtkdocdir}/exo-2
 %endif
