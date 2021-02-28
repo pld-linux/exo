@@ -94,9 +94,7 @@ Group:		Documentation
 Requires:	gtk-doc-common
 Provides:	libexo-apidocs
 Obsoletes:	libexo-apidocs
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 libexo API documentation.
