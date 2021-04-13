@@ -7,12 +7,12 @@
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	4.16.0
+Version:	4.16.2
 Release:	1
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	https://archive.xfce.org/src/xfce/exo/4.16/%{name}-%{version}.tar.bz2
-# Source0-md5:	0e2cb9c8bbe1993249358e2b0b9d9c54
+# Source0-md5:	c75bace01ab779afef911d8a3823c8fa
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
