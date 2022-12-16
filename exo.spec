@@ -3,22 +3,22 @@
 %bcond_without	apidocs		# gtk-doc documentation
 %bcond_with	static_libs	# static libraries
 
-%define		xfce_version	4.16.0
+%define		xfce_version	4.18.0
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	4.16.4
+Version:	4.18.0
 Release:	1
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	https://archive.xfce.org/src/xfce/exo/4.16/%{name}-%{version}.tar.bz2
-# Source0-md5:	f85fe6ad7fbd989c622f4d4ebef86881
+Source0:	https://archive.xfce.org/src/xfce/exo/4.18/%{name}-%{version}.tar.bz2
+# Source0-md5:	9d0be4e885eaf991e12dbc14d3fc628d
 URL:		http://www.os-cillation.com/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
-BuildRequires:	glib2-devel >= 1:2.42.0
+BuildRequires:	glib2-devel >= 1:2.66.0
 BuildRequires:	gtk+3-devel >= 3.22.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
 BuildRequires:	gtk-doc-automake
@@ -28,9 +28,9 @@ BuildRequires:	libxfce4ui-devel >= %{xfce_version}
 BuildRequires:	libxfce4util-devel >= %{xfce_version}
 BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.601
-BuildRequires:	xfce4-dev-tools >= 4.16.0
-Requires:	glib2 >= 1:2.42.0
+BuildRequires:	rpmbuild(macros) >= 2.000
+BuildRequires:	xfce4-dev-tools >= 4.18.0
+Requires:	glib2 >= 1:2.66.0
 Requires:	gtk+3 >= 3.22.0
 Requires:	xfce4-dirs >= 4.6
 Provides:	libexo
@@ -132,14 +132,14 @@ rm -rf $RPM_BUILD_ROOT
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libexo*.la
 
-# duplicates of hy,ur
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{hy_AM,ur_PK}
+# duplicates of hy,ur,az
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{az_AZ,hy_AM,ur_PK}
 # not supported by glibc (as of 2.32)
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{fa_IR,hye,ie}
 
 %{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo-2}
 
-%find_lang exo-2
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -153,7 +153,7 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-n xfce-preferred-applications
 %update_icon_cache hicolor
 
-%files -f exo-2.lang
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog HACKING NEWS
 %attr(755,root,root) %{_libdir}/libexo-2.so.*.*.*
@@ -164,7 +164,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/exo-desktop-item-edit
 %attr(755,root,root) %{_bindir}/exo-open
-%{_iconsdir}/hicolor/*/apps/preferences-desktop-default-applications.png
 %{_mandir}/man1/exo-open.1*
 
 %files devel
