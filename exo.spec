@@ -13,28 +13,29 @@ License:	GPL v2
 Group:		X11/Libraries
 Source0:	https://archive.xfce.org/src/xfce/exo/4.18/%{name}-%{version}.tar.bz2
 # Source0-md5:	9d0be4e885eaf991e12dbc14d3fc628d
-URL:		http://www.os-cillation.com/
-BuildRequires:	autoconf >= 2.60
+URL:		https://docs.xfce.org/xfce/exo/start
+BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.66.0
-BuildRequires:	gtk+3-devel >= 3.22.0
-%{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
-BuildRequires:	gtk-doc-automake
+BuildRequires:	gtk+3-devel >= 3.24.0
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.20}
+BuildRequires:	gtk-doc-automake >= 1.20
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libtool >= 2:2.4
 BuildRequires:	libxfce4ui-devel >= %{xfce_version}
 BuildRequires:	libxfce4util-devel >= %{xfce_version}
 BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 2.000
 BuildRequires:	xfce4-dev-tools >= 4.18.0
 Requires:	glib2 >= 1:2.66.0
-Requires:	gtk+3 >= 3.22.0
+Requires:	gtk+3 >= 3.24.0
 Requires:	xfce4-dirs >= 4.6
 Provides:	libexo
-Obsoletes:	libexo
+Obsoletes:	libexo < 0.3.101
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,10 +63,10 @@ Summary:	Header files for libexo library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libexo
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	gtk+3-devel >= 3.22.0
+Requires:	gtk+3-devel >= 3.24.0
 Requires:	libxfce4util-devel >= %{xfce_version}
 Provides:	libexo-devel
-Obsoletes:	libexo-devel
+Obsoletes:	libexo-devel < 0.3.101
 
 %description devel
 Header files for libexo library.
@@ -79,7 +80,7 @@ Summary(pl.UTF-8):	Statyczna biblioteka libexo
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Provides:	libexo-static
-Obsoletes:	libexo-static
+Obsoletes:	libexo-static < 0.3.101
 
 %description static
 Static libexo library.
@@ -93,7 +94,7 @@ Summary(pl.UTF-8):	Dokumentacja API libexo
 Group:		Documentation
 Requires:	gtk-doc-common
 Provides:	libexo-apidocs
-Obsoletes:	libexo-apidocs
+Obsoletes:	libexo-apidocs < 0.3.101
 BuildArch:	noarch
 
 %description apidocs
@@ -132,10 +133,12 @@ rm -rf $RPM_BUILD_ROOT
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libexo*.la
 
+# unify dir name
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{fa_IR,fa}
 # duplicates of hy,ur,az
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{az_AZ,hy_AM,ur_PK}
-# not supported by glibc (as of 2.32)
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{fa_IR,hye,ie}
+# not supported by glibc (as of 2.37)
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{hye,ie}
 
 %{!?with_apidocs:rm -rf $RPM_BUILD_ROOT%{_gtkdocdir}/exo-2}
 
