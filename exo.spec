@@ -3,22 +3,22 @@
 %bcond_without	apidocs		# gtk-doc documentation
 %bcond_with	static_libs	# static libraries
 
-%define		xfce_version	4.18.0
+%define		xfce_version	4.20.0
 Summary:	Extension library to Xfce developed by os-cillation
 Summary(pl.UTF-8):	Biblioteka rozszerzeń do Xfce opracowana przez os-cillation
 Name:		exo
-Version:	4.18.0
+Version:	4.20.0
 Release:	1
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	https://archive.xfce.org/src/xfce/exo/4.18/%{name}-%{version}.tar.bz2
-# Source0-md5:	9d0be4e885eaf991e12dbc14d3fc628d
+Source0:	https://archive.xfce.org/src/xfce/exo/4.20/%{name}-%{version}.tar.bz2
+# Source0-md5:	f059ec3d8686d4b322c42d19ebec0366
 URL:		https://docs.xfce.org/xfce/exo/start
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
-BuildRequires:	glib2-devel >= 1:2.66.0
+BuildRequires:	glib2-devel >= 1:2.72.0
 BuildRequires:	gtk+3-devel >= 3.24.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.20}
 BuildRequires:	gtk-doc-automake >= 1.20
@@ -30,8 +30,8 @@ BuildRequires:	perl-URI
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 2.000
-BuildRequires:	xfce4-dev-tools >= 4.18.0
-Requires:	glib2 >= 1:2.66.0
+BuildRequires:	xfce4-dev-tools >= 4.20.0
+Requires:	glib2 >= 1:2.72.0
 Requires:	gtk+3 >= 3.24.0
 Requires:	xfce4-dirs >= 4.6
 Provides:	libexo
@@ -110,7 +110,6 @@ mkdir -p m4
 
 %build
 %{?with_apidocs:%{__gtkdocize}}
-%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
