@@ -47,8 +47,8 @@ Biblioteka rozszerzeń do Xfce opracowana przez os-cillation.
 Summary:	The Xfce Preferred Applications framework
 Summary(pl.UTF-8):	Struktura Preferowanych Aplikacji Xfce
 Group:		X11/Applications
+Requires(post,postun):	gtk-update-icon-cache
 Requires:	%{name} = %{version}-%{release}
-Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 
 %description -n xfce-preferred-applications
