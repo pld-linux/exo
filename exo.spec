@@ -17,12 +17,11 @@ URL:		https://docs.xfce.org/xfce/exo/start
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	docbook-dtd412-xml
-BuildRequires:	gettext-tools
+BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.72.0
 BuildRequires:	gtk+3-devel >= 3.24.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.20}
 BuildRequires:	gtk-doc-automake >= 1.20
-BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libtool >= 2:2.4
 BuildRequires:	libxfce4ui-devel >= %{xfce_version}
 BuildRequires:	libxfce4util-devel >= %{xfce_version}
